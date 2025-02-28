@@ -1,4 +1,16 @@
 databaseChangeLog:
+#  - include:
+##        file: resources/db/changelog/db.changelog-1.0.sql
+#        file: db/changelog/db.changelog-1.0.sql
+#  - include:
+#      file: db/changelog/db.changelog-1.01.xml
+#  - include:
+#      file: db/changelog/db.changelog-1.2.sql
+#  - include:
+#      file: db/changelog/db.changelog-1.21.xml
+#
+
   - include:
-#        file: resources/db/changelog/db.changelog-1.0.sql
-        file: db/changelog/db.changelog-1.0.sql
+      file: db/changelog/db.changelog-1.0.yml
+  - include:
+      file: db/changelog/db.changelog-1.1.yml
