@@ -6,4 +6,4 @@ spring:
     password: 30HDBOOMONE12
 
   liquibase:
-    change-log: db/changelog/db.changelog-master.yaml
+    change-log: classpath:db/changelog/db.changelog-master.yaml
