@@ -1,0 +1,102 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1"
+      author: "Artem_Pupyshev"
+      runOnChange: false
+      changes:
+        - createTable:
+            tableName: loan_type
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: Name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - insert:
+            tableName: loan_type
+            columns:
+              - column:
+                  name: Name
+                  value: "Sberpank"
+        - insert:
+            tableName: loan_type
+            columns:
+              - column:
+                  name: Name
+                  value: "TZ-bank"
+        - createTable:
+            tableName: students_loans
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: First_Name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: Second_Name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: Loan_Type
+                  type: INT
+                  constraints:
+                    foreignKeyName: fk_students_loans_loan_type
+                    references: loan_type(id)
+              - column:
+                  name: Loan_Amount
+                  type: NUMERIC(10,4)
+                  constraints:
+                    nullable: false
+        - insert:
+            tableName: students_loans
+            columns:
+              - column:
+                  name: First_Name
+                  value: "Artem"
+              - column:
+                  name: Second_Name
+                  value: "Kokos"
+              - column:
+                  name: Loan_Type
+                  valueNumeric: 1
+              - column:
+                  name: Loan_Amount
+                  valueNumeric: 500.2
+        - insert:
+            tableName: students_loans
+            columns:
+              - column:
+                  name: First_Name
+                  value: "Bob"
+              - column:
+                  name: Second_Name
+                  value: "Bobov"
+              - column:
+                  name: Loan_Type
+                  valueNumeric: 2
+              - column:
+                  name: Loan_Amount
+                  valueNumeric: 50000.2
+      rollback:
+        - dropTable:
+            tableName: students_loans
+        - dropTable:
+            tableName: loan_type
+  - changeSet:
+      id: "tag-1"
+      author: "Artem_Pupyshev"
+      changes:
+        - tagDatabase:
+            tag: "v1.0"

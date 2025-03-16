@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Project666Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Project666Application.class, args);
+        int a = 5;
+        int b = 5;
+        System.out.println(a+b);
     }
 
 }
