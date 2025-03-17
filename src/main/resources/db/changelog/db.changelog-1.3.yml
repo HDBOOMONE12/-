@@ -4,7 +4,7 @@ databaseChangeLog:
       author: "Artem_Pupyshev"
       changes:
         - createTable:
-            tableNe: loan_lipe
+            tableName: loan_lipe
             columns:
               - column:
                   name: id
