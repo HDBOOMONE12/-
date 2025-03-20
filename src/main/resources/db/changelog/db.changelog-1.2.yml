@@ -4,7 +4,7 @@ databaseChangeLog:
       author: "Artem_Pupyshev"
       changes:
         - createTable:
-            tableName: loan_bipe
+            tableName: boan_dipe
             columns:
               - column:
                   name: id
@@ -18,20 +18,20 @@ databaseChangeLog:
                     nullable: false
                     unique: true
         - insert:
-            tableName: loan_bipe
+            tableName: boan_dipe
             columns:
               - column:
                   name: Name
                   value: "Sberpank"
         - insert:
-            tableName: loan_bipe
+            tableName: boan_dipe
             columns:
               - column:
                   name: Name
                   value: "TZ-bank"
       rollback:
         - dropTable:
-            tableName: loan_bipe
+            tableName: boan_dipe
   - changeSet:
       id: "tag-1.2"
       author: "Artem_Pupyshev"
