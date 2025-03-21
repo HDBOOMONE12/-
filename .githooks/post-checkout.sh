@@ -29,21 +29,27 @@ if [ -z "$new_last_liquibase_tag" ]; then
     exit 0
 fi
 
-# Если теги для previous и new одинаковы, выходим
-if [ "$prev_last_liquibase_tag" = "$new_last_liquibase_tag" ]; then
-    echo "ℹ️ Теги Liquibase одинаковы, действие не требуется."
+# Если нет тегов для предыдущего коммита, обновляем базу
+if [ -z "$prev_last_liquibase_tag" ]; then
+    echo "ℹ️ Нет тегов Liquibase для предыдущего коммита, обновляем базу"
+    cd src/main/resources
+    liquibase update --defaultsFile=liquibase.properties
     exit 0
 fi
 
-echo "🚩 Новый Liquibase-тег: $new_last_liquibase_tag"
+# Если теги для previous и new одинаковы, выходим
+if [ "$prev_last_liquibase_tag" = "$new_last_liquibase_tag" ]; then
+    echo "ℹ️ Теги Liquibase одинаковы ($prev_last_liquibase_tag), действие не требуется."
+    exit 0
+fi
 
-# Определяем, откат или вперёд
-if git merge-base --is-ancestor "$new_commit" "$previous_commit"; then
-    echo "⏪ Откат базы на $new_last_liquibase_tag..."
+# Сравниваем теги с помощью sort -V
+if [ "$(echo -e "$prev_last_liquibase_tag\n$new_last_liquibase_tag" | sort -V | head -1)" = "$new_last_liquibase_tag" ]; then
+    echo "⏪ Откат базы на $new_last_liquibase_tag (поскольку $new_last_liquibase_tag < $prev_last_liquibase_tag)"
     cd src/main/resources
     liquibase rollback "$new_last_liquibase_tag" --defaultsFile=liquibase.properties
 else
-    echo "⏩ Обновляем базу..."
+    echo "⏩ Обновляем базу до $new_last_liquibase_tag (поскольку $new_last_liquibase_tag > $prev_last_liquibase_tag)"
     cd src/main/resources
     liquibase update --defaultsFile=liquibase.properties
 fi
