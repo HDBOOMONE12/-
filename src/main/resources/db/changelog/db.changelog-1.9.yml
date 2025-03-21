@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.9"
+      author: "Artem_Pupyshev"
+      changes:
+        - createTable:
+            tableName: test8
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: Name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - insert:
+            tableName: test8
+            columns:
+              - column:
+                  name: Name
+                  value: "Sberpank"
+        - insert:
+            tableName: test8
+            columns:
+              - column:
+                  name: Name
+                  value: "TZ-bank"
+      rollback:
+        - dropTable:
+            tableName: test8
+  - changeSet:
+      id: "tag-1.9"
+      author: "Artem_Pupyshev"
+      changes:
+        - tagDatabase:
+            tag: "v1.9"
