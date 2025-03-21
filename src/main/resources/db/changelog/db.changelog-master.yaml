@@ -22,3 +22,5 @@ databaseChangeLog:
       file: db/changelog/db.changelog-1.4.yml
   - include:
       file: db/changelog/db.changelog-1.5.yml
+  - include:
+      file: db/changelog/db.changelog-1.6.yml
