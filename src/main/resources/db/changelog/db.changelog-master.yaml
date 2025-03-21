@@ -30,4 +30,6 @@ databaseChangeLog:
       file: db/changelog/db.changelog-1.8.yml
   - include:
       file: db/changelog/db.changelog-1.9.yml
+  - include:
+      file: db/changelog/db.changelog-2.0.yml
 
