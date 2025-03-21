@@ -1,34 +1,32 @@
-#!/bin/sh
+name: check
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-    previous_commit=$1
-    new_commit=$2
-    branch_checkout=$3
-  
-  # Переходим из .githooks в корень проекта
-    cd "$(dirname "$0")/.."
-  
-  # Находим последнюю строку с + tag: "vX.X"
-    last_liquibase_tag=$(
-    git log "$new_commit" -p -- '*.yml' '*.yaml' \
-    | grep -E '^[[:space:]]*\+.*tag:[[:space:]]*".*"' \
-    | sed -E 's/^[[:space:]]*\+.*tag:[[:space:]]*"([^"]+)".*/\1/' \
-    | tail -1
-    )
-    
-    if [ -n "$last_liquibase_tag" ]; then
-echo "🚩 Последний Liquibase-тег: $last_liquibase_tag"
-    else
-    echo "ℹ️ Нет тегов Liquibase до этого коммита."
-    exit 0
-    fi
-  
-  # Определяем, откат или вперёд
-    if git merge-base --is-ancestor "$new_commit" "$previous_commit"; then
-    echo "⏪ Откат базы на $last_liquibase_tag..."
-    cd src/main/resources
-    liquibase rollback "$last_liquibase_tag" --defaultsFile=liquibase.properties
-    else
-    echo "⏩ Обновляем базу..."
-    cd src/main/resources
-    liquibase update --defaultsFile=liquibase.properties
-    fi
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4.7.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.2.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Build with Maven
+        run: mvn clean install
+
