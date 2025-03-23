@@ -94,3 +94,9 @@ databaseChangeLog:
             tableName: students_loans
         - dropTable:
             tableName: loan_type
+  - changeSet:
+      id: "tag-1"
+      author: "Artem_Pupyshev"
+      changes:
+        - tagDatabase:
+            tag: "v1.0"

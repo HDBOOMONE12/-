@@ -32,3 +32,9 @@ databaseChangeLog:
       rollback:
         - dropTable:
             tableName: loan_wipe
+  - changeSet:
+      id: "tag-1.2"
+      author: "Artem_Pupyshev"
+      changes:
+        - tagDatabase:
+            tag: "v1.2"
