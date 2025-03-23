@@ -32,3 +32,7 @@ databaseChangeLog:
       file: src/main/resources/db/changelog/db.changelog-1.1.yml
   - include:
       file: src/main/resources/db/changelog/db.changelogTag-1.1.yml
+  - include:
+      file: src/main/resources/db/changelog/db.changelog-1.2.yml
+  - include:
+      file: src/main/resources/db/changelog/db.changelogTag-1.2.yml
