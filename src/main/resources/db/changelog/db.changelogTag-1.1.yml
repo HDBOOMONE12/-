@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: "tag-1.1"
+      author: "Artem_Pupyshev"
+      changes:
+        - tagDatabase:
+            tag: "v1.1"

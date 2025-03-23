@@ -27,16 +27,8 @@ databaseChangeLog:
   - include:
       file: src/main/resources/db/changelog/db.changelog-1.0.yml
   - include:
+      file: src/main/resources/db/changelog/db.changelogTag-1.0.yml
+  - include:
       file: src/main/resources/db/changelog/db.changelog-1.1.yml
   - include:
-      file: src/main/resources/db/changelog/db.changelog-1.2.yml
-  - include:
-      file: src/main/resources/db/changelog/db.changelog-1.3.yml
-  - include:
-      file: src/main/resources/db/changelog/db.changelog-1.4.yml
-  - include:
-      file: src/main/resources/db/changelog/db.changelog-1.5.yml
-  - include:
-      file: src/main/resources/db/changelog/db.changelog-1.6.yml
-  - include:
-      file: src/main/resources/db/changelog/db.changelog-1.7.yml
+      file: src/main/resources/db/changelog/db.changelogTag-1.1.yml
