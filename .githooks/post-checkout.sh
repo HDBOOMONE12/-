@@ -22,7 +22,7 @@ if [ -n "$VERSION" ]; then
     TIMESTAMP_B=$(git show --format=%ct -s $2)
     if [ "$TIMESTAMP_A" -gt "$TIMESTAMP_B" ]; then
       # Переход на более ранний коммит, выполняем откат
-      liquibase --defaultsFile=liquibase.properties rollbackToTag v$VERSION
+      liquibase --defaultsFile=liquibase.properties rollback v$VERSION
     else
       # Переход на более поздний коммит, выполняем обновление
       liquibase --defaultsFile=liquibase.properties update
