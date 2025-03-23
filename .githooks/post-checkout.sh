@@ -24,10 +24,16 @@
 # Считываем путь к нужному changelog
 
 #!/bin/sh
-LAST_FILE_LINE=$(grep 'file:' db.changelog-master.yaml | tail -n 1 | sed 's/.*file:\s*//')
-if [ -n "$LAST_FILE_LINE" ]; then
-  echo "Последний путь к файлу: $LAST_FILE_LINE"
-else
-  echo "В файле db.changelog-master.yaml не нашлось ни одной строки с 'file:'."
+# Переходим в корень репозитория (из .git/hooks)
+cd "$(dirname "$0")/../.."
+FILE_PATH="src/main/resources/db/changelog/db.changelog-master.yaml"
+if git merge-base --is-ancestor "$2" "$1"; then
+  LAST_LINE=$(grep 'file:' "$FILE_PATH" | tail -n 1)
+  VERSION=$(echo "$LAST_LINE" | sed 's/^.*db\.changelog-\(.*\)\.yml/\1/')
+  if [ -n "$VERSION" ]; then
+    echo "$VERSION"
+  else
+    echo "Версия не найдена"
+  fi
 fi
 exit 0
